@@ -6,7 +6,15 @@ Examples:
     extractValue(arr,'name') // ['Elie', 'Tim', 'Matt', 'Colt']
 */
 
-function extractValue(arr, key) {}
+function extractValue(arr, key) {
+
+    let extractionArray = [];
+    arr.reduce(function (name, next, index) {
+        extractionArray[index] = next[key];
+        return name;
+    }, []);
+    return extractionArray;
+}
 
 /*
 Write a function called vowelCount which accepts a string and returns an object with the keys as the vowel and the values as the number of times the vowel appears in the string. This function should be case insensitive so a lowercase letter and uppercase letter should count
@@ -19,7 +27,18 @@ Examples:
     vowelCount('I Am awesome and so are you') // {i: 1, a: 4, e: 3, o: 3, u: 1};
 */
 
-function vowelCount(str) {}
+function vowelCount(str) {
+
+    const charFreq = {};
+    Array.from(str.toLowerCase()).reduce(function (first, next) {
+        if ("aeiou".indexOf(next) !== -1) {
+            if (charFreq[next]) { charFreq[next] += 1; }
+            else { charFreq[next] = 1; }
+        }
+        return first;
+    }, []);
+    return charFreq;
+}
 
 /*
 Write a function called addKeyAndValue which accepts an array of objects and returns the array of objects passed to it with each object now including the key and value passed to the function.
@@ -36,7 +55,16 @@ Examples:
        ]
 */
 
-function addKeyAndValue(arr, key, value) {}
+
+//I had used the commented lines, but kept getting tile undefined.
+function addKeyAndValue(arr, key, value) {
+    let titlewNames = {};
+    titlewNames = arr.reduce(function (first, next, index) {
+        first[index][key] = value;
+        return first;
+    }, arr);
+    return titlewNames;
+}
 
 /*
 Write a function called partition which accepts an array and a callback and returns an array with two arrays inside of it. The partition function should run the callback function on each value in the array and if the result of the callback function at that specific value is true, the value should be placed in the first subarray. If the result of the callback function at that specific value is false, the value should be placed in the second subarray. 
@@ -59,5 +87,16 @@ Examples:
     
     partition(names, isLongerThanThreeCharacters) // [['Elie', 'Colt', 'Matt'], ['Tim']]
 */
+//This one was hard and I had to review the solution
+function partition(arr, callback) {
 
-function partition(arr, callback) {}
+    return arr.reduce(function (arr2, next) {
+        if (callback(next)) {
+            arr2[0].push(next);
+        }
+        else { arr2[1].push(next); }
+        return arr2;
+
+    }, [[], []]);
+
+}
